@@ -1,0 +1,176 @@
+<link rel="stylesheet" href="ftexternal.css">
+<html>
+<head><title> Contact Page </title></head>
+
+    <!-- Logo +  Nav Bar  -->
+    <header>
+        <div class="top">
+        <nav> 
+            <a href="homepage.html"><img class="logo" src="transparent.png"></a>
+            <ul class="topnav">
+	        <li><a href="about.html">About</a></li>
+            <li><a href="FAQs.html">FAQs</a></li>
+            <li><a href="catalog.html">Catalog</a></li>
+	        <li><a href="order.html">Order</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav> 
+        </div>
+    </header>
+    
+
+<style>
+
+
+.fruit {
+  max-width: 100%; /* set the maximum width of the image to 100% */
+  height: auto; /* set the height of the image to auto, to maintain aspect ratio */
+  margin-bottom: 20px; /* add some margin below the image */
+}
+    h2, body, h1, p{
+        color: white;
+    }
+    input[type=text], select, textarea {
+    width: 100%; 
+    border: 1px solid #440000;
+    box-sizing: border-box; 
+    margin: 20px 0px 20px 0px; 
+    resize: vertical;
+    padding: 10px; 
+    font-size: 20px;
+    background-color: rgb(240, 255, 235);
+    }
+    h2{
+        padding: 20px 0px 0px 0px;
+        margin: 0px; 
+    }
+    p{
+        padding: 10px 0px 0px 0px;
+        margin: 0px; 
+    }
+    .textarea-default::before {
+    content: "Please enter your message here...";
+    display: block;
+    }
+</style>
+
+
+<body>
+    
+
+<!-- test two columns -->
+<div class="panel">
+    <form onsubmit="return verifySubmit()">
+        <h1>Contact Us! </h1>
+		<label for="txtNameId"><h2>Name* </h2></label> <input type = 'text'
+		name ='name' placeholder="your name">
+        </br>
+        <label for="txtNameId"><h2>Phone Number* </h2> </label> <input type = 'text'
+		name='phone' placeholder="your phone number">
+        </br>
+        <label for="txtNameId"><h2>Email* </h2> </label> <input type = 'text'
+		name='email' placeholder="your email address"> 
+		<br />
+		<input type="radio" name='choice' value='yes' checked='1'> <p>Reply using phone number </p>
+		<input type="radio" name='choice' value='no'> <p> Reply using email </p>
+		<br />
+		<textarea class="box" rows="5"></textarea>
+		<br /> <input type='submit' value='Submit'>
+        <p> *Required <p>
+		<br />
+	</form>
+    
+</div>
+
+<script>function verifySubmit() {
+    console.log("You clicked the verifySubmit");
+    const name = document.querySelector("input[name='name']").value.trim();
+    const phone = document.querySelector("input[name='phone']").value.trim();
+    const email = document.querySelector("input[name='email']").value.trim();
+    const city = document.querySelector(".box").value.trim();
+
+    if (name === '') {
+        alert("Please enter your name");
+        return false;
+    }
+
+    if (!/^(\d{7}|\d{10})$/.test(phone)) {
+        alert("Please enter a valid phone number");
+        return false;
+    }
+
+    if (email === '') {
+        alert("Please enter your email");
+        return false;
+    }
+
+    if (city === '') {
+        alert("Please enter your city");
+        return false;
+    }
+
+    alert("Thank you for your message!");
+    return false;
+}
+
+</script>
+
+<div class="panel">
+        
+            <h2><a href="https://www.google.com/maps/place/124+Millstead+Dr,+Mebane,+NC+27302/data=!4m2!3m1!1s0x89acd418125d8e7d:0x731c95c61446fd2d?sa=X&ved=2ahUKEwiay4ue54b9AhV1MlkFHW4YBNcQ8gF6BAgIEAI">
+                Address</a></h2>
+            <p>
+                Come visit our store!
+              </br>
+              </br>
+                123 Main St, Oaxaca, California 27302
+              </br>
+                Phone Number: 336 555 8426
+            </p>
+</div>
+
+
+
+
+<style>
+/* Text and picture column */   
+.panel{
+    margin: 5% 20% 5% 20%;
+    padding: 2% 5% 2% 5%;
+    align-items: center;
+    justify-content: center;
+    background-color: #104432;
+    align-items: center;
+    /* margin: 0% 20% 0% 20%; */
+}
+
+    .img1 {
+        float: left;
+        max-width: 40%;
+        height: auto;
+        position: relative;
+
+        float: top;
+        margin-right: 40px;
+        overflow:hidden;
+    }
+    .panel::after {
+        content: "";
+        clear: both;
+        display: table;
+      }
+.text {
+     font-size: 30px;
+     padding: 10%
+}
+</style>
+
+</body>
+<footer>
+    <ul class='footer'>
+        <li><a href="Homepage.html">
+            FruityTreasures.com</a></li>
+        <li>Copyright 2023</a></li>
+    </ul>
+</footer>
+</html>

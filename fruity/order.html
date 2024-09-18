@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@300;500;900&family=PT+Serif:ital,wght@0,400;0,700;1,400&family=Source+Code+Pro:wght@700&display=swap" rel="stylesheet">
+        
+    <link rel="stylesheet" href="ftexternal.css">  
+<style>  
+form {
+	display: inline-block;
+  	margin: auto; 
+	padding-right: 30px; 
+	padding-left: 30px;
+  	text-align: center;
+  	vertical-align: middle;
+    	background-color: rgb(213, 213, 234); 
+	border-radius: 20px;  
+	padding-bottom: 30px; 
+	padding-top: 30px;
+}  
+
+.between { 
+	padding: 40px;
+}
+
+.image { 
+	height: 50px; 
+	width: 50px;
+}
+
+body { 
+	text-align: center;  
+    color: rgb(75, 58, 58);
+}
+</style> 
+<head>
+<title>Fruity Treasures Form</title>
+</head>
+
+<body> 
+        <header>
+        <div class="top">
+        <nav> 
+            <a href="homepage.html"><img class="logo" src="transparent.png"></a>
+            <ul class="topnav">
+	    <li><a href="about.html">About</a></li>
+            <li><a href="FAQs.html">FAQs</a></li>
+            <li><a href="catalog.html">Catalog</a></li>
+	    <li><a href="order.html">Order</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav> 
+        </div>
+    </header>
+<script>
+
+function Box(name, cost, img)
+{
+	this.name = name;
+	this.cost = cost; 
+	this.img = img; 
+}
+
+boxItems = new Array(
+	new Box("Tantalizing Tango", 29.99, "<img src= 'mexico.jpeg' width='75' height='75'>"),
+	new Box("Mango Medley", 29.99, "<img src= 'india.jpeg' width='75' height='75'>"),
+	new Box("Pinoy Palooza", 29.99, "<img src= 'philippines.jpeg' width='75' height='75'>"),
+	new Box("Kiwano Krush", 29.99, "<img src= 'kiwano.jpeg' width='75' height='75'>"),
+	new Box("Rambutan Rendezvous", 29.99, "<img src= 'rambutan.jpeg' width='75' height='75'>"), 
+    new Box("Papaya Party", 29.99, "<img src= 'papaya.jpeg' width='75' height='75'>")
+);
+
+function makeSelect(name, minRange, maxRange)
+{
+	var t= "";
+	t = "<select name='" + name + "' size='1'>";
+	for (j=minRange; j<=maxRange; j++)
+	   t += "<option>" + j + "</option>";
+	t+= "</select>"; 
+	return t;
+} 
+
+function td(content, className="")
+{
+	return "<td class = '" + className + "'>" + content + "</td>";
+}
+	
+</script>
+
+<h1>Order Form</h1>
+<form>
+
+<p class="userInfo"><label>First Name:</label> <input type="text"  name='fname' /></p>
+<p class="userInfo"><label>Last Name*:</label>  <input type="text"  name='lname' /></p>
+<p class="userInfo address"><label>Street*:</label> <input type="text" name='street' /></p>
+<p class="userInfo address"><label>City*:</label> <input type="text" name='city' /></p>
+<p class="userInfo"><label>Phone*:</label> <input type="text"  name='phone' /></p> 
+<p class="user Info"><label>Email*:</label> <input type="text" name='email' /></p>
+<!-- updated the onclick for pickup and delivery -->
+<!-- <p>  
+	<input type="radio"  name="p_or_d" value = "pickup" checked="checked"/>Pickup  
+	<input type="radio"  name='p_or_d' value = 'delivery'/>
+	Delivery
+</p> -->
+<table border="0" cellpadding="3">
+  <tr>
+    <th>Quantity</th> 
+	<th></th>
+    <th>Box Name</th>
+    <th>Cost Each</th>
+    <th>Total Cost</th>
+  </tr>
+<script>
+
+  var s = "";
+  for (i=0; i < boxItems.length; i++)
+  {
+	  s += "<tr>";
+	  s += td(makeSelect("quan" + i, 0, 10),"selectQuantity"); 
+	  s += td(boxItems[i].img, "image");
+	  s += td(boxItems[i].name, "itemName");
+	  s += td("$" + boxItems[i].cost.toFixed(2), "cost");
+	  s += td("$<input type='text' name='cost'/>", "totalCost");
+	  s+= "</tr>";
+  }
+  document.writeln(s);
+</script>
+</table>
+<p class="subtotal totalSection"><label>Subtotal</label>: 
+   $ <input type="text"  name='subtotal' id="subtotal" />
+</p>
+<p class="tax totalSection"><label>Tax:</label>
+  $ <input type="text"  name='tax' id="tax" />
+</p>
+<p class="total totalSection"><label>Total:</label> $ <input type="text"  name='total' id="total" />
+</p>
+
+<input type = "button" value = "Submit Order" />
+
+</form>  
+<div class="between"> 
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js">    
+</script>
+<script>  
+
+		
+	/* when the submit button it clicked, it validates fields*/
+
+		const submit = document.querySelector('input[value="Submit Order"]'); 
+
+		submit.addEventListener('click', function(event) {
+
+			if (validate() == true) 
+			{ 
+				newWindow();
+			}
+		});
+
+
+	/* if any of the quantities for the items change, it updates fields */
+	$(document).ready(function() 
+	{ 
+		// $(".address").hide();   
+		var subtotal = 0; 
+
+		$("select[name='quan0']").change(function() { 
+			individualCost(0);
+		}); 
+
+		$("select[name='quan1']").change(function() { 
+			individualCost(1);
+		}); 
+
+		$("select[name='quan2']").change(function() { 
+			individualCost(2);
+		}); 
+
+		$("select[name='quan3']").change(function() { 
+			individualCost(3);
+		}); 
+
+		$("select[name='quan4']").change(function() { 
+			individualCost(4);
+		}); 
+
+		$("select[name='quan5']").change(function() { 
+			individualCost(5);
+		}); 
+
+	}) 
+
+	
+
+	// /* if delivery is clicked it shows the address fields so user can fill */
+	// $("input:radio[value='delivery']").click(function() { 
+	// 	$(".address").show();
+	// }) 
+
+	// /* if pickup is clicked it hides the address fields */
+	// $("input:radio[value='pickup']").click(function() { 
+	// 	$(".address").hide();
+	// })    
+
+
+    /* calculates the costs of the items when quant is updated */
+	function individualCost(i) {      
+		var elementName = "quan" + i;
+		var cost = document.getElementsByName(elementName); 
+		var selected = cost[0].selectedIndex;   
+		var result = (selected * boxItems[i].cost).toFixed(2);   
+		document.forms[0].cost[i].value = result;  
+		subtotal(); 
+	}  
+
+	/* calculates the subtotal of the order */
+	function subtotal() 
+	{    
+		var subtotal = 0; 
+		for (var j = 0; j < boxItems.length; j++) 
+		{  
+			var cost = parseFloat(document.forms[0].cost[j].value); 
+			if (isNaN(cost)) 
+			{  
+				continue;
+			}  
+			subtotal += cost; 
+		} 
+		document.forms[0].subtotal.value = subtotal.toFixed(2); 
+		tax_and_total(subtotal);
+	} 
+
+	/* calculates the tax and adds it to the subtotal */
+	function tax_and_total(subtotal) 
+	{ 
+		var taxedTotal = (subtotal * .0625).toFixed(2); 
+		document.forms[0].tax.value = taxedTotal; 
+		var newTax = parseFloat(taxedTotal);    
+		var newTotal = (newTax + subtotal).toFixed(2);
+		document.forms[0].total.value = newTotal; 
+	}
+
+
+	/* validates all the fields */
+	function validate() 
+	{   
+		var lastName = document.forms[0].lname.value; 
+		var phone = document.forms[0].phone.value;  
+		// var delivery = document.forms[0].p_or_d.value; 
+		const phoneValid = /^\D*(\d\D*){7}(\d\D*){3}?$/; 
+		var valid = true;
+
+		if (!phoneValid.test(phone)) 
+		{
+  			alert('Please enter a valid 7 or 10-digit phone number.'); 
+			valid = false;
+		} 
+		if (lastName.length < 1) 
+		{ 
+			alert("Please enter your full name"); 
+			valid = false;
+		}   
+		var check = 0;
+		for (var i = 0; i < boxItems.length; i++) 
+		{ 
+			var elementName = "quan" + i;
+			var cost = document.getElementsByName(elementName); 
+			var selected = cost[0].selectedIndex;  
+			check += selected; 
+		} 
+		if (check == 0) 
+		{ 
+			alert("There is no items ordered"); 
+			valid = false;
+		} 
+	
+		var street = document.forms[0].street.value; 
+		var city = document.forms[0].city.value; 
+		if (street.length < 1 || city.length < 1) { 
+			alert("Please enter both your street and city names"); 
+			valid = false;
+		}   
+
+		return valid;
+	}   
+
+	/* creates a new window with the order summary*/
+	function newWindow() 
+	{  
+		var new_window = window.open("Order Summary", "", "");  
+		var name = document.getElementsByClassName("itemName"); 
+
+
+		new_window.document.write('<link rel="stylesheet" href="ftexternal.css">'); 
+
+		new_window.document.write("<style> h1 {color: rgb(233, 150, 164); text-align: center;"
+			+ "font: sans-serif; font-size: 60px;} h2 {color: rgba(28, 34, 28, 0.602);"
+			+ "font: sans-serif; text-align: center} "
+			+ ".ordered, .sub, .tax, .total, .time, .email { color: rgba(28, 34, 28, 0.602);"
+		    + " text-align: center; } .ordered {padding-bottom: 20px}"
+			+ ".sub, .tax, .total {font-weight: bold;} .summary {padding-bottom: 50px; } </style>");
+
+
+		new_window.document.write("<header> <div class='top'> <nav>" 
+			+ "<a href='homepage.html'> <img class='logo' src='transparent.png'>"
+			+ "</a> <ul class='topnav'><li><a href='about.html'>About</a></li>"
+			+ "<li><a href='FAQs.html'>FAQs</a></li>"
+			+ "<li><a href='catalog.html'>Catalog</a></li>" 
+			+ "<li><a href='order.html'>Order</a></li>"
+			+ " <li><a href='contact.html'>Contact</a></li>" + "</ul> </nav> </div> </header>");
+	
+		new_window.document.write("<h1>Thank you for ordering!</h1><br>"
+		+ "<div class='summary'><h2> ORDER SUMMARY </h2><br>" + "<div class='ordered'>" );
+		
+		for (var i = 0; i < boxItems.length; i++) 
+		{  
+			var elem_name = "quan" + i;
+			var quan = document.getElementsByName(elem_name);   
+			
+			var curr = quan[0].selectedIndex;  
+			if (curr != 0) 
+			{ 
+				new_window.document.write(curr + "   ...   " + 
+				name[i].textContent + "   ...   $" + document.forms[0].cost[i].value + "<br>");
+			} 
+		}
+ 
+		new_window.document.write("</div>");
+	
+		new_window.document.write("<br><div class='sub'> Subtotal: $" + document.forms[0].subtotal.value + "</div><br>" 
+		+ "<div class='tax'> Tax: $" + document.forms[0].tax.value + "</div><br>" 
+		+ "<div class='total'> Total: $" + document.forms[0].total.value + "</div><br>"
+		+ "<div class='time'> Your fruity treasure box should be shipped in 3 - 5 days!" + "</div><br>" 
+        + "<div class='email'> An email confirmation should be sent to: " + document.forms[0].email.value + "!! </div> </div>"); 
+
+		new_window.document.write("<footer> <ul class='footer'> <li>"
+		+ "<a href='tt_homepage.html'> FruityTreasures.com</a></li>"
+        + " <li>Copyright 2023</a></li> </ul> </footer> ");
+
+	}
+	
+
+
+
+</script> 
+		    <footer>
+        <ul class="footer">
+            <li><a href="homepage.html">
+                FruityTreasures.com</a></li>
+            <li class="footer">Copyright &copy; 2023 - All Rights Reserved</li>
+        </ul>
+    </footer>
+</body>
+</html>
