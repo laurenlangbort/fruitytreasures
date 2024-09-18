@@ -9,7 +9,7 @@ Encourage healthy eating habits with fresh, nutritious, and unique fruits.
 Make these fruits accessible to everyone through our online platform.
 We are a diverse team who loves food and is passionate about representing our cultures! Our website is more than just a marketplace—it's a way to celebrate the richness of global flavors.
 
-🌱Project Goals
+Project Goals
 This project started as a way for us to use new technologies learned throughout the spring semester to improve the usability, appearance, and functionality of the original Fruity Treasures site. Some of the features we've implemented include:
 
 Frontend Enhancements: The first draft of our website was built using HTML, CSS, and JavaScript, focusing on improving the user experience and visual appeal of our e-commerce platform.
